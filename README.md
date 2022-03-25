@@ -27,11 +27,7 @@ To use this addon, follow the usage instructions or [watch this video](https://w
 
 ## Changelog
 
-Please see [CHANGELOG](https://github.com/steadfast-collective/statamic-csv-exporter/blob/master/CHANGELOG.md) for more information what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](https://github.com/steadfast-collective/statamic-csv-exporter/blob/master/CONTRIBUTING.md) for details.
+Please see [CHANGELOG](https://github.com/steadfast-collective/statamic-csv-exporter/blob/main/CHANGELOG.md) for more information what has changed recently.
 
 ## Security
 
@@ -39,4 +35,4 @@ If you discover any security related issues, please email [dev@steadfastcollecti
 
 ## License
 
-The MIT License (MIT). Please see [License File](https://github.com/steadfast-collective/statamic-csv-exporter/blob/master/LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/steadfast-collective/statamic-csv-exporter/blob/main/LICENSE.md) for more information.
