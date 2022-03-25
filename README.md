@@ -1,6 +1,12 @@
+<!-- statamic:hide -->
+
+![Screenshot of CSV Export Utility](./screenshot.png)
+
 # Statamic CSV Exporter
 
-> Export collection entries to CSVs
+<!-- /statamic:hide -->
+
+This addon gives you the ability to export your content to CSV files.
 
 ## Installation
 
