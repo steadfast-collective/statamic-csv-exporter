@@ -1,0 +1,27 @@
+{
+    "name": "steadfastcollective/statamic-csv-exporter",
+    "description": "Export collection entries to CSVs",
+    "license": "MIT",
+    "type": "statamic-addon",
+    "autoload": {
+        "psr-4": {
+            "SteadfastCollective\\StatamicCsvExporter\\": "src"
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "CSV Exporter",
+            "description": "Export collection entries to CSVs"
+        },
+        "laravel": {
+            "providers": [
+                "SteadfastCollective\\StatamicCsvExporter\\ServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "statamic/cms": "3.2.* || 3.3.*",
+        "maatwebsite/excel": "^3.1"
+    }
+}
