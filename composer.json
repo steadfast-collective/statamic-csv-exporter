@@ -1,6 +1,6 @@
 {
     "name": "steadfastcollective/statamic-csv-exporter",
-    "description": "Export collection entries to CSVs",
+    "description": "Export your content to CSV files.",
     "license": "MIT",
     "type": "statamic-addon",
     "autoload": {
@@ -11,7 +11,7 @@
     "extra": {
         "statamic": {
             "name": "CSV Exporter",
-            "description": "Export collection entries to CSVs"
+            "description": "Export your content to CSV files."
         },
         "laravel": {
             "providers": [
