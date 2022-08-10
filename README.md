@@ -13,7 +13,7 @@ This addon gives you the ability to export your content to CSV files.
 You can search for this addon in the `Tools > Addons` section of the Statamic Control Panel and click **install**, or run the following command from your project root:
 
 ``` bash
-composer require steadfastcollective/statamic-csv-exporter
+composer require steadfastcollective/statamic-csv-exporter -W
 ```
 
 ## Usage
