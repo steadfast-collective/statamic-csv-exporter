@@ -6,31 +6,37 @@ use Maatwebsite\Excel\Facades\Excel;
 use Statamic\Facades\Collection;
 use SteadfastCollective\StatamicCsvExporter\Exports\CollectionExport;
 use SteadfastCollective\StatamicCsvExporter\Http\Requests\ExportRequest;
-use ZipArchive;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use ZipStream\Option\Archive;
+use ZipStream\ZipStream;
 
 class ExportController
 {
     public function __invoke(ExportRequest $request)
     {
-        $zipFilename = 'export-' . now()->format('Y-m-d-H-i-s') . '.zip';
+        $collections = $request->input('collections');
 
-        $zip = new ZipArchive;
-        $zip->open(storage_path($zipFilename), ZipArchive::CREATE | ZipArchive::OVERWRITE);
+        return new StreamedResponse(function () use ($collections) {
+            $options = new Archive();
+            $options->setZeroHeader(true);
+            $options->setSendHttpHeaders(true);
 
-        foreach ($request->input('collections') as $collection) {
-            $collection = Collection::find($collection);
+            $zipFilename = 'export-' . now()->format('Y-m-d-H-i-s') . '.zip';
 
-            $export = new CollectionExport($collection->handle());
+            $zip = new ZipStream($zipFilename, $options);
 
-            $filename = $collection->handle() . '-' . now()->format('Y-m-d-H-i-s');
+            foreach ($collections as $collection) {
+                $collection = Collection::find($collection);
 
-            Excel::store($export, $filename . '.csv', 'local');
+                $export = new CollectionExport($collection->handle());
 
-            $zip->addFile(storage_path('app/' . $filename . '.csv'), $filename . '.csv');
-        }
+                $csvFilename = $collection->handle() . '-' . now()->format('Y-m-d-H-i-s') . '.csv';
+                $csvData = Excel::raw($export, \Maatwebsite\Excel\Excel::CSV);
 
-        $zip->close();
+                $zip->addFile($csvFilename, $csvData);
+            }
 
-        return response()->download(storage_path($zipFilename));
+            $zip->finish();
+        });
     }
 }
