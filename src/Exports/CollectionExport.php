@@ -24,10 +24,7 @@ class CollectionExport implements FromCollection, WithMapping, WithHeadings
 
     public function headings(): array
     {
-        /** @var \Statamic\Fields\Fields */
-        $fields = Collection::find($this->collectionHandle)->entryBlueprint()->fields();
-
-        $blueprintFields = $fields->all()->map(function ($field) {
+        $blueprintFields = $this->fields()->map(function ($field) {
             return $field->display();
         })->values()->toArray();
 
@@ -38,15 +35,24 @@ class CollectionExport implements FromCollection, WithMapping, WithHeadings
 
     public function map($entry): array
     {
-        /** @var \Statamic\Fields\Fields */
-        $fields = Collection::find($this->collectionHandle)->entryBlueprint()->fields();
-
-        $blueprintValues = $fields->all()->map(function ($field) use ($entry) {
+        $blueprintValues = $this->fields()->map(function ($field) use ($entry) {
             return $entry->get($field->handle());
         })->values()->toArray();
 
         return array_merge([
             $entry->id(),
         ], $blueprintValues);
+    }
+
+    protected function fields()
+    {
+        /** @var \Statamic\Fields\Fields */
+        $fields = Collection::find($this->collectionHandle)->entryBlueprint()->fields();
+            
+        $filtered = $fields->all()->filter(function ($field) {
+            return $field->get('csv_exporter', true);
+        });
+
+        return $filtered;
     }
 }
