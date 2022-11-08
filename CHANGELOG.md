@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v2.0.1 (2022-11-08)
+
+- Updated composer lock file
+
 ## v2.0.0 (2022-10-21)
 
 ### What's improved
