@@ -2,6 +2,7 @@
 
 namespace SteadfastCollective\StatamicCsvExporter\Exports;
 
+use Illuminate\Support\Collection as IlluminateCollection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -24,10 +25,7 @@ class CollectionExport implements FromCollection, WithMapping, WithHeadings
 
     public function headings(): array
     {
-        /** @var \Statamic\Fields\Fields */
-        $fields = Collection::find($this->collectionHandle)->entryBlueprint()->fields();
-
-        $blueprintFields = $fields->all()->map(function ($field) {
+        $blueprintFields = $this->fields()->map(function ($field) {
             return $field->display();
         })->values()->toArray();
 
@@ -38,15 +36,22 @@ class CollectionExport implements FromCollection, WithMapping, WithHeadings
 
     public function map($entry): array
     {
-        /** @var \Statamic\Fields\Fields */
-        $fields = Collection::find($this->collectionHandle)->entryBlueprint()->fields();
-
-        $blueprintValues = $fields->all()->map(function ($field) use ($entry) {
+        $blueprintValues = $this->fields()->map(function ($field) use ($entry) {
             return $entry->get($field->handle());
         })->values()->toArray();
 
         return array_merge([
             $entry->id(),
         ], $blueprintValues);
+    }
+
+    protected function fields(): IlluminateCollection
+    {
+        /** @var \Statamic\Fields\Fields */
+        $fields = Collection::find($this->collectionHandle)->entryBlueprint()->fields();
+
+        $ignoredFields = config("statamic-csv-exporter.ignored_fields.collections.{$this->collectionHandle}", []);
+
+        return $fields->all()->except($ignoredFields);
     }
 }
