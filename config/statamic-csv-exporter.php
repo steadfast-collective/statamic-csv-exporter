@@ -12,7 +12,7 @@ return [
     */
 
     'ignored_fields' => [
-        'entries' => [
+        'collections' => [
             // 'collection_handle' => [
             //     'field_handle',
             // ],
