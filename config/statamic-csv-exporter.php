@@ -13,9 +13,11 @@ return [
 
     'ignored_fields' => [
         'collections' => [
-            // 'collection_handle' => [
-            //     'field_handle',
+
+            // 'events' => [
+            //     'author', 'excerpt',
             // ],
+
         ],
     ],
 
