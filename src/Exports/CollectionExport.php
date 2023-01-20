@@ -48,8 +48,8 @@ class CollectionExport implements FromCollection, WithMapping, WithHeadings
     {
         /** @var \Statamic\Fields\Fields */
         $fields = Collection::find($this->collectionHandle)->entryBlueprint()->fields();
-        
-        $ignoredFields = config("csv-exporter.ignored_fields.entries.{$this->collectionHandle}", []);
+
+        $ignoredFields = config("statamic-csv-exporter.ignored_fields.entries.{$this->collectionHandle}", []);
         $filtered = $fields->all()->except($ignoredFields);
 
         return $filtered;

@@ -11,11 +11,11 @@ class ServiceProvider extends AddonServiceProvider
 {
     public function bootAddon()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/csv-exporter.php', 'csv-exporter');
+        $this->mergeConfigFrom(__DIR__ . '/../config/statamic-csv-exporter.php', 'statamic-csv-exporter');
 
         $this->publishes([
-            __DIR__ . '/../config/csv-exporter.php' => config_path('csv-exporter.php'),
-        ], 'csv-exporter-config');
+            __DIR__ . '/../config/statamic-csv-exporter.php' => config_path('statamic-csv-exporter.php'),
+        ], 'statamic-csv-exporter-config');
 
         Utility::make('csv-exporter')
             ->title(__('CSV Exporter'))
