@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v2.1.0 (2023-01-20)
+
+### What's new
+
+- You can now configure fields to exclude from your exports #3
+
 ## v2.0.1 (2022-11-08)
 
 - Updated composer lock file
