@@ -2,6 +2,7 @@
 
 namespace SteadfastCollective\StatamicCsvExporter\Exports;
 
+use Illuminate\Support\Collection as IlluminateCollection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
@@ -44,7 +45,7 @@ class CollectionExport implements FromCollection, WithMapping, WithHeadings
         ], $blueprintValues);
     }
 
-    protected function fields()
+    protected function fields(): IlluminateCollection
     {
         /** @var \Statamic\Fields\Fields */
         $fields = Collection::find($this->collectionHandle)->entryBlueprint()->fields();
