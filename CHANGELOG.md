@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## v2.2.0 (2023-04-28)
+
+### What's new
+
+- Statamic 4 Compatibility #5 by @duncanmcclean
+
 ## v2.1.0 (2023-01-20)
 
 ### What's new
