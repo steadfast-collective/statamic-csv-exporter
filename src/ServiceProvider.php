@@ -17,16 +17,17 @@ class ServiceProvider extends AddonServiceProvider
             __DIR__ . '/../config/statamic-csv-exporter.php' => config_path('statamic-csv-exporter.php'),
         ], 'statamic-csv-exporter-config');
 
-        Utility::make('csv-exporter')
-            ->title(__('CSV Exporter'))
-            ->icon('download')
-            ->description(__('Export your content to CSV files.'))
-            ->view('statamic-csv-exporter::index', function () {
-                return ['collections' => Collection::all()];
-            })
-            ->routes(function ($router) {
-                $router->post('/export', ExportController::class)->name('export');
-            })
-            ->register();
+        Utility::extend(function () {
+            Utility::register('csv-exporter')
+                ->title(__('CSV Exporter'))
+                ->icon('download')
+                ->description(__('Export your content to CSV files.'))
+                ->view('statamic-csv-exporter::index', function () {
+                    return ['collections' => Collection::all()];
+                })
+                ->routes(function ($router) {
+                    $router->post('/export', ExportController::class)->name('export');
+                });
+        });
     }
 }
