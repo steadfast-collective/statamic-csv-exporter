@@ -2,7 +2,13 @@
 
 ## Unreleased
 
-## v2.2.0 (2023-04-28)
+## v2.2.1 (2023-06-05)
+
+### What's fixed
+
+* Fixed an issue with utility registration by @duncanmcclean
+
+## v2.2.0 (2023-06-05)
 
 ### What's new
 
