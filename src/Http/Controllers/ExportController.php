@@ -7,7 +7,6 @@ use Statamic\Facades\Collection;
 use SteadfastCollective\StatamicCsvExporter\Exports\CollectionExport;
 use SteadfastCollective\StatamicCsvExporter\Http\Requests\ExportRequest;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use ZipStream\Option\Archive;
 use ZipStream\ZipStream;
 
 class ExportController
@@ -17,13 +16,14 @@ class ExportController
         $collections = $request->input('collections');
 
         return new StreamedResponse(function () use ($collections) {
-            $options = new Archive();
-            $options->setZeroHeader(true);
-            $options->setSendHttpHeaders(true);
 
             $zipFilename = 'export-' . now()->format('Y-m-d-H-i-s') . '.zip';
-
-            $zip = new ZipStream($zipFilename, $options);
+            
+            $zip = new ZipStream(
+                outputName: $zipFilename,
+                defaultEnableZeroHeader: true,
+                sendHttpHeaders: true,
+            );
 
             foreach ($collections as $collection) {
                 $collection = Collection::find($collection);
@@ -33,7 +33,10 @@ class ExportController
                 $csvFilename = $collection->handle() . '-' . now()->format('Y-m-d-H-i-s') . '.csv';
                 $csvData = Excel::raw($export, \Maatwebsite\Excel\Excel::CSV);
 
-                $zip->addFile($csvFilename, $csvData);
+                $zip->addFile(
+                  fileName: $csvFilename,
+                  data: $csvData,
+                );
             }
 
             $zip->finish();
